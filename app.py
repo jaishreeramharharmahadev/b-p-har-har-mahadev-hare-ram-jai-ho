@@ -471,6 +471,22 @@ def generate_certificate():
         traceback.print_exc()
         return jsonify({"error": str(e)}), 500
     
+@app.route("/test-pdf")
+def test_pdf():
+    try:
+        pdf_path = add_content_to_template({
+            "full_name": "Test User",
+            "domain": "Backend",
+            "unique_id": "TEST001",
+            "internship_duration": "3 Months",
+            "start_date": "01 Jan 2025",
+            "stipend": "Unpaid"
+        })
+        return f"PDF generated at: {pdf_path}"
+    except Exception as e:
+        return f"Error: {str(e)}"
+    
+    
 if __name__ == "__main__":
     # Create static folder if it doesn't exist
     import os
